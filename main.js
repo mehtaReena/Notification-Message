@@ -1,34 +1,41 @@
+const messageBtn = document.querySelector(".message-btn");
+const alertBtn = document.querySelector(".alert-btn");
+const msgBox = document.querySelector(".message");
+const alertBox = document.querySelector(".alert");
+let timer = null;
 
-const notificationBtn = document.getElementById("message");
-const alertBtn = document.getElementById("alert");
-const container = document.getElementById("container");
+alertBtn.addEventListener("click", (e) => {
+    msgBox.classList.add("hide");
+    alertBox.classList.remove("hide");
+    timer = setTimeout(() => {
+        alertBox.classList.add("hide");
+    }, 2000);
+});
 
-// notificationBtn.addEventListener('click', show());
-// alertBtn.addEventListener('click', showAlert());
+messageBtn.addEventListener("click", (e) => {
+    alertBox.classList.add("hide");
+    msgBox.classList.remove("hide");
+    timer = setTimeout(() => {
+        msgBox.classList.add("hide");
+    }, 1000);
+});
 
-function show(){
+msgBox.addEventListener("mouseenter", (e) => {
+    clearTimeout(timer);
+});
 
+msgBox.addEventListener("mouseout", (e) => {
+    timer = setTimeout(() => {
+        msgBox.classList.add("hide");
+    }, 2000);
+});
 
+alertBox.addEventListener("mouseenter", (e) => {
+    clearTimeout(timer);
+});
 
-    let message = document.createElement("div");
-    message.classList.add('message')
-    message.innerText="message";
-    container.appendChild(message);
-    // setTimeout(function () {document.getElementById('message').style.display='none'},10);
-
-}
-
-
-
-function showAlert(){
-
-    let message = document.createElement("div");
-    message.classList.add('alert')
-    message.innerText="message";
-
-    container.appendChild(message);
-
-}
-
-
-
+alertBox.addEventListener("mouseout", (e) => {
+    timer = setTimeout(() => {
+        alertBox.classList.add("hide");
+    }, 1000);
+});
